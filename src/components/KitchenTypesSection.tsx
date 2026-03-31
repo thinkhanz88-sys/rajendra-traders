@@ -42,8 +42,12 @@ const KitchenTypesSection = () => {
         </motion.div>
 
         {/* Mobile Slider */}
+        {/* Mobile Slider */}
         <div className="md:hidden relative">
-          <div ref={scrollRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4">
+          <div
+            ref={scrollRef}
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4"
+          >
             {kitchenTypes.map((type, i) => (
               <motion.div
                 key={type.title}
@@ -51,26 +55,38 @@ const KitchenTypesSection = () => {
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 onClick={() => setSelected(i)}
-                className="snap-center shrink-0 w-[75vw] card-hover rounded-2xl overflow-hidden bg-card border border-border group cursor-pointer"
+                className="snap-center shrink-0 w-[82vw] card-hover rounded-2xl overflow-hidden bg-card border border-border shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer"
               >
-                <div className="relative overflow-hidden aspect-[4/3]">
-                  <img src={type.image} alt={type.title} loading="lazy" width={800} height={600} className="w-full h-full object-cover" />
+                {/* Image */}
+                <div className="relative overflow-hidden aspect-[5/4]">
+                  <img
+                    src={type.image}
+                    alt={type.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-active:scale-105 transition-transform duration-500"
+                  />
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-60" />
                 </div>
-                <div className="p-4">
-                  <h3 className="font-heading text-base font-semibold text-foreground mb-1">{type.title}</h3>
-                  <p className="font-body text-xs text-muted-foreground">{type.desc}</p>
+
+                {/* Content */}
+                <div className="p-5">
+                  <h3 className="font-heading text-[15px] font-semibold tracking-tight text-foreground mb-1">
+                    {type.title}
+                  </h3>
+                  <p className="font-body text-[11px] text-muted-foreground opacity-80">
+                    {type.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
-          <div className="flex justify-center gap-3 mt-3">
-            <button onClick={() => scroll("left")} className="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center" aria-label="Previous">
-              <ChevronLeft className="w-4 h-4 text-foreground" />
-            </button>
-            <button onClick={() => scroll("right")} className="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center" aria-label="Next">
-              <ChevronRight className="w-4 h-4 text-foreground" />
-            </button>
-          </div>
+
+          {/* Hint Text */}
+          <p className="text-[10px] text-muted-foreground text-center mt-2">
+            Tap to know more
+          </p>
         </div>
 
         {/* Desktop Grid */}

@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card">
+    <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 glass-card">
       <div className="container-narrow flex items-center justify-between px-4 py-3 md:px-8">
         <a href="#home" className="font-heading text-xl font-bold text-foreground">
           Rajendra <span className="text-gold-gradient">Traders</span>

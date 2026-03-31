@@ -37,19 +37,22 @@ const ServicesSection = () => {
   return (
     <section id="services" className="section-padding bg-secondary/50" ref={ref}>
       <div className="container-narrow">
+
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-14 md:mb-16"
         >
           <span className="badge-gold mb-4 inline-block">Our Services</span>
           <h2 className="section-title mb-4">What We Offer</h2>
-          <p className="section-subtitle mx-auto">
+          <p className="section-subtitle mx-auto text-[14px] leading-relaxed">
             End-to-end solutions for your dream kitchen and home interiors
           </p>
         </motion.div>
 
+        {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <motion.div
@@ -57,16 +60,30 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="card-hover rounded-2xl p-8 bg-card border border-border group"
+              className="rounded-2xl p-[30px] md:p-7 bg-card border border-border group shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-6 sm:block relative overflow-hidden"
             >
-              <div className="w-14 h-14 rounded-xl gold-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              {/* Icon */}
+              <div className="w-14 h-14 min-w-[56px] rounded-xl gold-gradient flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                 <service.icon className="w-7 h-7 text-wood-dark" />
               </div>
-              <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{service.title}</h3>
-              <p className="font-body text-sm text-muted-foreground leading-relaxed">{service.desc}</p>
+
+              {/* Content */}
+              <div className="flex-1">
+                <h3 className="font-heading text-[17px] md:text-xl font-semibold text-foreground mb-2.5 tracking-tight">
+                  {service.title}
+                </h3>
+
+                <p className="font-body text-[13.5px] text-muted-foreground leading-relaxed">
+                  {service.desc}
+                </p>
+              </div>
+
+              {/* Subtle Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none" />
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

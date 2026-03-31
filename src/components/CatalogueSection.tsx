@@ -26,6 +26,8 @@ const CatalogueSection = () => {
   return (
     <section className="section-padding" ref={ref}>
       <div className="container-narrow">
+
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -34,12 +36,13 @@ const CatalogueSection = () => {
         >
           <span className="badge-gold mb-4 inline-block">Catalogue</span>
           <h2 className="section-title mb-4">Browse Our Catalogues</h2>
-          <p className="section-subtitle mx-auto">
+          <p className="section-subtitle mx-auto text-[14px] leading-relaxed">
             Explore our complete collection of designs, materials, and finishes
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
           {catalogues.map((cat, i) => (
             <motion.div
               key={cat.title}
@@ -47,40 +50,56 @@ const CatalogueSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.15 * i }}
             >
-              <div className="card-hover rounded-2xl bg-card border border-border overflow-hidden h-full">
-                <div className="wood-gradient p-6 flex items-center justify-center">
-                  <div className="w-20 h-28 bg-card/10 backdrop-blur-sm rounded-lg border border-border/20 flex items-center justify-center">
-                    <cat.icon className="w-10 h-10" style={{ color: "hsl(43, 80%, 55%)" }} />
+              <div className="rounded-2xl bg-card border border-border overflow-hidden h-full shadow-sm hover:shadow-lg transition-all duration-300">
+
+                {/* Top Icon Area (slightly reduced) */}
+                <div className="wood-gradient p-5 flex items-center justify-center">
+                  <div className="w-16 h-24 bg-card/10 backdrop-blur-sm rounded-lg border border-border/20 flex items-center justify-center">
+                    <cat.icon className="w-8 h-8" style={{ color: "hsl(43, 80%, 55%)" }} />
                   </div>
                 </div>
-                <div className="p-5 text-center">
-                  <h3 className="font-heading text-lg font-semibold text-foreground mb-1.5">{cat.title}</h3>
-                  <p className="font-body text-xs text-muted-foreground mb-5">{cat.desc}</p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
+
+                {/* Content */}
+                <div className="p-4 text-center">
+                  <h3 className="font-heading text-[16px] font-semibold text-foreground mb-1.5 tracking-tight">
+                    {cat.title}
+                  </h3>
+
+                  <p className="font-body text-[12px] text-muted-foreground mb-4 leading-relaxed">
+                    {cat.desc}
+                  </p>
+
+                  {/* Buttons */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
                     <a
                       href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.viewMsg)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-gold w-full sm:w-auto text-xs py-2.5 px-5"
+                      className="btn-gold w-full sm:w-auto text-[12px] py-2 px-4"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       View
                     </a>
+
                     <a
                       href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.dlMsg)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary w-full sm:w-auto text-xs py-2.5 px-5"
+                      className="btn-primary w-full sm:w-auto text-[12px] py-2 px-4"
                     >
                       <Download className="w-3.5 h-3.5" />
                       Download
                     </a>
                   </div>
                 </div>
+
+                {/* Subtle Glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none rounded-2xl" />
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

@@ -1,143 +1,111 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Phone, Mail, MessageCircle, MapPin, Send } from "lucide-react";
+import { useRef } from "react";
+import { Eye, Download, FileText, BookOpen } from "lucide-react";
 
-const ContactSection = () => {
+const catalogues = [
+  {
+    title: "Kitchen Collection 2025",
+    desc: "Complete modular kitchen designs, pricing & specifications",
+    icon: FileText,
+    viewMsg: "Hello! Please share the Kitchen Collection catalogue.",
+    dlMsg: "Hello! I'd like to download the Kitchen Collection catalogue.",
+  },
+  {
+    title: "Wardrobe & Interiors 2025",
+    desc: "Premium wardrobe designs, accessories & finishes",
+    icon: BookOpen,
+    viewMsg: "Hello! Please share the Wardrobe & Interiors catalogue.",
+    dlMsg: "Hello! I'd like to download the Wardrobe & Interiors catalogue.",
+  },
+];
+
+const CatalogueSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = `Hello Rajendra Traders! My name is ${formData.name}. Phone: ${formData.phone}. ${formData.message}`;
-    window.open(`https://wa.me/917869543555?text=${encodeURIComponent(text)}`, "_blank");
-  };
 
   return (
-    <section id="contact" className="section-padding" ref={ref}>
+    <section className="section-padding" ref={ref}>
       <div className="container-narrow">
+
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-12"
         >
-          <span className="badge-gold mb-4 inline-block">Get In Touch</span>
-          <h2 className="section-title mb-4">Contact Us</h2>
-          <p className="section-subtitle mx-auto">
-            Ready to transform your kitchen? Get in touch for a free consultation
+          <span className="badge-gold mb-4 inline-block">Catalogue</span>
+          <h2 className="section-title mb-4">Browse Our Catalogues</h2>
+          <p className="section-subtitle mx-auto text-[14px] leading-relaxed">
+            Explore our complete collection of designs, materials, and finishes
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
-          >
-            <div className="card-hover rounded-2xl p-6 bg-card border border-border flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5 text-wood-dark" />
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-semibold text-foreground mb-1">Call Us</h3>
-                <a href="tel:+917869543555" className="font-body text-sm text-muted-foreground hover:text-gold transition-colors">
-                  +91 7869543555
-                </a>
-              </div>
-            </div>
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
+          {catalogues.map((cat, i) => (
+            <motion.div
+              key={cat.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 * i }}
+            >
+              <div className="rounded-2xl bg-card border border-border overflow-hidden h-full shadow-sm hover:shadow-lg transition-all duration-300 relative">
 
-            <div className="card-hover rounded-2xl p-6 bg-card border border-border flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0">
-                <MessageCircle className="w-5 h-5 text-wood-dark" />
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-semibold text-foreground mb-1">WhatsApp</h3>
-                <a
-                  href="https://wa.me/917869543555"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-body text-sm text-muted-foreground hover:text-gold transition-colors"
-                >
-                  +91 7869543555
-                </a>
-              </div>
-            </div>
+                {/* Icon Area (tight mobile only) */}
+                <div className="wood-gradient py-4 md:p-6 flex items-center justify-center">
+                  <div className="w-14 h-20 md:w-20 md:h-28 bg-card/10 backdrop-blur-sm rounded-md md:rounded-lg border border-border/20 flex items-center justify-center">
+                    <cat.icon
+                      className="w-7 h-7 md:w-10 md:h-10"
+                      style={{ color: "hsl(43, 80%, 55%)" }}
+                    />
+                  </div>
+                </div>
 
-            <div className="card-hover rounded-2xl p-6 bg-card border border-border flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5 text-wood-dark" />
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-semibold text-foreground mb-1">Email</h3>
-                <a href="mailto:491rajendra@gmail.com" className="font-body text-sm text-muted-foreground hover:text-gold transition-colors">
-                  491rajendra@gmail.com
-                </a>
-              </div>
-            </div>
+                {/* Content */}
+                <div className="px-4 py-3 md:p-5 text-center">
+                  <h3 className="font-heading text-[15px] md:text-lg font-semibold text-foreground mb-1.5 tracking-tight">
+                    {cat.title}
+                  </h3>
 
-            <div className="card-hover rounded-2xl p-6 bg-card border border-border flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0">
-                <MapPin className="w-5 h-5 text-wood-dark" />
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-semibold text-foreground mb-1">Visit Us</h3>
-                <p className="font-body text-sm text-muted-foreground">Rajendra Traders, India</p>
-              </div>
-            </div>
-          </motion.div>
+                  <p className="font-body text-[11.5px] md:text-xs text-muted-foreground mb-4 md:mb-5 leading-snug md:leading-relaxed">
+                    {cat.desc}
+                  </p>
 
-          {/* Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <form onSubmit={handleSubmit} className="card-hover rounded-2xl p-8 bg-card border border-border space-y-5">
-              <div>
-                <label className="font-body text-sm font-medium text-foreground block mb-2">Your Name</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/50"
-                  placeholder="Enter your name"
-                />
+                  {/* Buttons */}
+                  <div className="flex gap-2 md:gap-2.5 flex-col sm:flex-row items-center justify-center">
+                    <a
+                      href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.viewMsg)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-gold w-full sm:w-auto text-[11px] md:text-xs py-2 md:py-2.5 px-4 md:px-5 flex items-center justify-center gap-1"
+                    >
+                      <Eye className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                      View
+                    </a>
+
+                    <a
+                      href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.dlMsg)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary w-full sm:w-auto text-[11px] md:text-xs py-2 md:py-2.5 px-4 md:px-5 flex items-center justify-center gap-1"
+                    >
+                      <Download className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                      Download
+                    </a>
+                  </div>
+                </div>
+
+                {/* Subtle Glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none rounded-2xl" />
               </div>
-              <div>
-                <label className="font-body text-sm font-medium text-foreground block mb-2">Phone Number</label>
-                <input
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/50"
-                  placeholder="Enter phone number"
-                />
-              </div>
-              <div>
-                <label className="font-body text-sm font-medium text-foreground block mb-2">Message</label>
-                <textarea
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none"
-                  placeholder="Tell us about your project"
-                />
-              </div>
-              <button type="submit" className="btn-gold w-full">
-                <Send className="w-4 h-4" />
-                Send via WhatsApp
-              </button>
-            </form>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
+
       </div>
     </section>
   );
 };
 
-export default ContactSection;
+export default CatalogueSection;

@@ -43,33 +43,46 @@ const GallerySection = () => {
         </motion.div>
 
         {/* Mobile Slider */}
+        {/* Mobile Slider */}
         <div className="md:hidden relative">
-          <div ref={scrollRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4">
+          <div
+            ref={scrollRef}
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4"
+          >
             {images.map((img, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="snap-center shrink-0 w-[78vw] relative overflow-hidden rounded-2xl aspect-[4/3] group"
+                className="snap-center shrink-0 w-[84vw] relative overflow-hidden rounded-2xl aspect-[5/4] shadow-md hover:shadow-xl transition-all duration-300 group"
               >
-                <img src={img.src} alt={img.alt} loading="lazy" width={800} height={600} className="w-full h-full object-cover" />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/70 to-transparent p-4">
-                  <span className="font-body text-sm font-medium" style={{ color: "hsl(40, 40%, 94%)" }}>{img.alt}</span>
+                {/* Image */}
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-active:scale-105 transition-transform duration-500"
+                />
+
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+                {/* Text */}
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <span className="font-body text-[12px] font-medium text-white tracking-tight">
+                    {img.alt}
+                  </span>
                 </div>
               </motion.div>
             ))}
           </div>
-          <div className="flex justify-center gap-3 mt-3">
-            <button onClick={() => scroll("left")} className="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center" aria-label="Previous">
-              <ChevronLeft className="w-4 h-4 text-foreground" />
-            </button>
-            <button onClick={() => scroll("right")} className="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center" aria-label="Next">
-              <ChevronRight className="w-4 h-4 text-foreground" />
-            </button>
-          </div>
-        </div>
 
+          {/* Hint */}
+          <p className="text-[10px] text-muted-foreground text-center mt-2">
+            Swipe to explore
+          </p>
+        </div>
         {/* Desktop Grid */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-4">
           {images.map((img, i) => (

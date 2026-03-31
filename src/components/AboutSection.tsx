@@ -17,7 +17,8 @@ const AboutSection = () => {
   return (
     <section id="about" className="section-padding" ref={ref}>
       <div className="container-narrow">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-20 items-center">
+          
           {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -25,18 +26,24 @@ const AboutSection = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="badge-gold mb-4 inline-block">About Us</span>
-            <h2 className="section-title mb-6">
-              Crafting Dream Kitchens <span className="text-gold-gradient">Since 1995</span>
+
+            <h2 className="section-title mb-5">
+              Crafting Dream Kitchens{" "}
+              <span className="text-gold-gradient">Since 1995</span>
             </h2>
-            <p className="section-subtitle mb-6">
-              Rajendra Traders, led by <strong>Sanjay Jain</strong>, has been at the forefront of modular kitchen 
-              and wardrobe solutions for over three decades. We combine traditional craftsmanship with modern 
+
+            <p className="section-subtitle mb-5 text-[14px] leading-relaxed">
+              Rajendra Traders, led by <strong>Sanjay Jain</strong>, has been at
+              the forefront of modular kitchen and wardrobe solutions for over
+              three decades. We combine traditional craftsmanship with modern
               design to deliver kitchens that are both beautiful and functional.
             </p>
-            <p className="section-subtitle">
-              From premium materials to expert installation, every project reflects our commitment to 
-              quality and customer satisfaction. We don't just build kitchens — we create spaces where 
-              families come together.
+
+            <p className="section-subtitle text-[14px] leading-relaxed">
+              From premium materials to expert installation, every project
+              reflects our commitment to quality and customer satisfaction. We
+              don't just build kitchens — we create spaces where families come
+              together.
             </p>
           </motion.div>
 
@@ -45,7 +52,7 @@ const AboutSection = () => {
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-2 gap-5 mt-6 md:mt-0"
           >
             {stats.map((stat, i) => (
               <motion.div
@@ -53,14 +60,27 @@ const AboutSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                className="card-hover rounded-2xl p-6 text-center bg-card border border-border"
+                className="rounded-2xl p-5 text-center bg-card border border-border shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden"
               >
-                <stat.icon className="w-8 h-8 mx-auto mb-3 text-gold" />
-                <div className="font-heading text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
-                <div className="font-body text-sm text-muted-foreground mt-1">{stat.label}</div>
+                {/* Icon */}
+                <stat.icon className="w-7 h-7 mx-auto mb-3 text-gold opacity-90" />
+
+                {/* Value */}
+                <div className="font-heading text-[22px] md:text-3xl font-bold text-foreground tracking-tight">
+                  {stat.value}
+                </div>
+
+                {/* Label */}
+                <div className="font-body text-[12px] text-muted-foreground mt-1 opacity-80">
+                  {stat.label}
+                </div>
+
+                {/* Subtle Glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none" />
               </motion.div>
             ))}
           </motion.div>
+
         </div>
       </div>
     </section>
