@@ -1,8 +1,128 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
+/* Swiper Styles */
+@import "swiper/css";
+@import "swiper/css/effect-coverflow";
+@import "swiper/css/pagination";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* Gallery Swiper Custom Styles */
+  .swiper-gallery {
+    width: 100%;
+    padding-top: 20px !important;
+    padding-bottom: 60px !important;
+  }
+
+  .swiper-slide-gallery {
+    width: 310px !important;
+    height: 430px !important;
+    background: hsl(var(--card));
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border: 1px solid hsl(var(--border) / 0.1);
+    transition: transform 0.5s ease;
+  }
+
+  .slide-img-gallery {
+    height: 100% !important;
+    width: 100%;
+    object-fit: cover;
+    transition: scale 0.7s ease;
+  }
+
+  .swiper-slide-gallery:hover .slide-img-gallery {
+    scale: 1.05;
+  }
+
+  .slide-info-gallery {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Show on hover or when the slide is centered (active) in Swiper */
+  .swiper-slide-gallery:hover .slide-info-gallery,
+  .swiper-slide-active .slide-info-gallery {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slide-info-gallery h3 {
+    color: white !important;
+  }
+
+  .slide-info-gallery p {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .kitchen-overlay-detailed {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 4rem 1.5rem 2.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 40%, transparent 100%);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .swiper-slide-active .kitchen-overlay-detailed,
+  .swiper-slide-gallery:hover .kitchen-overlay-detailed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .kitchen-overlay-detailed h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: white !important;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .kitchen-overlay-detailed p.kitchen-desc {
+    color: hsl(var(--gold)) !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .kitchen-overlay-detailed p.kitchen-details {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: hsl(var(--gold)) !important;
+    width: 24px !important;
+    border-radius: 4px !important;
+  }
+}
 
 @layer base {
   :root {

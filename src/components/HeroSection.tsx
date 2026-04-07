@@ -6,7 +6,7 @@ import heroMobile from "@/assets/hero-bg.png";
 const HeroSection = () => {
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-4">
-      
+
       {/* Desktop Image */}
       <img
         src={heroImg}

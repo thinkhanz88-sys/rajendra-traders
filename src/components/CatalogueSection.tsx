@@ -4,19 +4,12 @@ import { Eye, Download, FileText, BookOpen } from "lucide-react";
 
 const catalogues = [
   {
-    title: "Kitchen Collection 2025",
-    desc: "Complete modular kitchen designs, pricing & specifications",
-    icon: FileText,
-    viewMsg: "Hello! Please share the Kitchen Collection catalogue.",
-    dlMsg: "Hello! I'd like to download the Kitchen Collection catalogue.",
-  },
-  {
-    title: "Wardrobe & Interiors 2025",
-    desc: "Premium wardrobe designs, accessories & finishes",
+    title: "Complete Product Catalogue 2025",
+    desc: "Explore our full collection of modular kitchens, wardrobes & interior designs",
     icon: BookOpen,
-    viewMsg: "Hello! Please share the Wardrobe & Interiors catalogue.",
-    dlMsg: "Hello! I'd like to download the Wardrobe & Interiors catalogue.",
-  },
+    file: "/Catalogue.pdf",
+    fileName: "Rajendra_Traders_Catalogue_2025.pdf"
+  }
 ];
 
 const CatalogueSection = () => {
@@ -24,7 +17,7 @@ const CatalogueSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="section-padding" ref={ref}>
+    <section className="section-padding" id="catalogue" ref={ref}>
       <div className="container-narrow">
 
         {/* Header */}
@@ -35,66 +28,66 @@ const CatalogueSection = () => {
           className="text-center mb-10 md:mb-12"
         >
           <span className="badge-gold mb-4 inline-block">Catalogue</span>
-          <h2 className="section-title mb-4">Browse Our Catalogues</h2>
+          <h2 className="section-title mb-4">Our Catalogue</h2>
           <p className="section-subtitle mx-auto text-[14px] leading-relaxed">
-            Explore our complete collection of designs, materials, and finishes
+            Download our complete collection of designs, materials, and finishes
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
+        {/* Grid (Centered for single card) */}
+        <div className="max-w-md mx-auto">
           {catalogues.map((cat, i) => (
             <motion.div
               key={cat.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 * i }}
             >
-              <div className="rounded-2xl bg-card border border-border overflow-hidden h-full shadow-sm hover:shadow-lg transition-all duration-300">
-
-                {/* Top Icon Area (slightly reduced) */}
-                <div className="wood-gradient p-5 flex items-center justify-center">
-                  <div className="w-16 h-24 bg-card/10 backdrop-blur-sm rounded-lg border border-border/20 flex items-center justify-center">
-                    <cat.icon className="w-8 h-8" style={{ color: "hsl(43, 80%, 55%)" }} />
+              <div className="relative group rounded-2xl bg-card border border-border overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+                
+                {/* Top Icon Area */}
+                <div className="wood-gradient p-8 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="w-16 h-24 bg-background/20 backdrop-blur-md rounded-lg border border-white/20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500 z-10">
+                    <cat.icon className="w-8 h-8 text-gold" style={{ color: "hsl(43, 80%, 55%)" }} />
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-4 text-center">
-                  <h3 className="font-heading text-[16px] font-semibold text-foreground mb-1.5 tracking-tight">
+                <div className="p-6 text-center">
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2 tracking-tight group-hover:text-gold transition-colors duration-300">
                     {cat.title}
                   </h3>
 
-                  <p className="font-body text-[12px] text-muted-foreground mb-4 leading-relaxed">
+                  <p className="font-body text-sm text-muted-foreground mb-6 leading-relaxed px-4">
                     {cat.desc}
                   </p>
 
                   {/* Buttons */}
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a
-                      href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.viewMsg)}`}
+                      href={cat.file}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-gold w-full sm:w-auto text-[12px] py-2 px-4"
+                      className="btn-gold w-full sm:w-auto text-xs py-2.5 px-6 flex items-center justify-center gap-2"
                     >
-                      <Eye className="w-3.5 h-3.5" />
-                      View
+                      <Eye className="w-4 h-4" />
+                      View Online
                     </a>
 
                     <a
-                      href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.dlMsg)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary w-full sm:w-auto text-[12px] py-2 px-4"
+                      href={cat.file}
+                      download={cat.fileName}
+                      className="btn-primary w-full sm:w-auto text-xs py-2.5 px-6 flex items-center justify-center gap-2"
                     >
-                      <Download className="w-3.5 h-3.5" />
-                      Download
+                      <Download className="w-4 h-4" />
+                      Download PDF
                     </a>
                   </div>
                 </div>
 
-                {/* Subtle Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none rounded-2xl" />
+                {/* Subtle Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-gold/5 via-transparent to-transparent pointer-events-none" />
               </div>
             </motion.div>
           ))}
@@ -102,6 +95,7 @@ const CatalogueSection = () => {
 
       </div>
     </section>
+
   );
 };
 

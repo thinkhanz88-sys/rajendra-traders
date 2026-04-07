@@ -1,111 +1,155 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Eye, Download, FileText, BookOpen } from "lucide-react";
+import { useRef, useState } from "react";
+import { Phone, Mail, MessageCircle, MapPin, Send } from "lucide-react";
 
-const catalogues = [
-  {
-    title: "Kitchen Collection 2025",
-    desc: "Complete modular kitchen designs, pricing & specifications",
-    icon: FileText,
-    viewMsg: "Hello! Please share the Kitchen Collection catalogue.",
-    dlMsg: "Hello! I'd like to download the Kitchen Collection catalogue.",
-  },
-  {
-    title: "Wardrobe & Interiors 2025",
-    desc: "Premium wardrobe designs, accessories & finishes",
-    icon: BookOpen,
-    viewMsg: "Hello! Please share the Wardrobe & Interiors catalogue.",
-    dlMsg: "Hello! I'd like to download the Wardrobe & Interiors catalogue.",
-  },
-];
-
-const CatalogueSection = () => {
+const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = `Hello Rajendra Traders! My name is ${formData.name}. Phone: ${formData.phone}. ${formData.message}`;
+    window.open(`https://wa.me/917869543555?text=${encodeURIComponent(text)}`, "_blank");
+  };
 
   return (
-    <section className="section-padding" ref={ref}>
-      <div className="container-narrow">
+    <section id="contact" className="section-padding scroll-mt-24 relative overflow-hidden" ref={ref}>
+      {/* Background Decor */}
+      <div className="absolute top-1/4 -right-24 w-96 h-96 bg-gold/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-24 w-72 h-72 bg-gold/5 blur-[100px] rounded-full pointer-events-none" />
 
-        {/* Header */}
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10 md:mb-12"
+          className="text-center mb-12 md:mb-20"
         >
-          <span className="badge-gold mb-4 inline-block">Catalogue</span>
-          <h2 className="section-title mb-4">Browse Our Catalogues</h2>
-          <p className="section-subtitle mx-auto text-[14px] leading-relaxed">
-            Explore our complete collection of designs, materials, and finishes
+          <span className="badge-gold mb-4 inline-block">Keep In Touch</span>
+          <h2 className="section-title mb-4">Let's Discuss Your Project</h2>
+          <p className="section-subtitle mx-auto">
+            Ready to transform your kitchen? Get in touch for a premium consultation and expert design advice.
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
-          {catalogues.map((cat, i) => (
-            <motion.div
-              key={cat.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
-            >
-              <div className="rounded-2xl bg-card border border-border overflow-hidden h-full shadow-sm hover:shadow-lg transition-all duration-300 relative">
-
-                {/* Icon Area (tight mobile only) */}
-                <div className="wood-gradient py-4 md:p-6 flex items-center justify-center">
-                  <div className="w-14 h-20 md:w-20 md:h-28 bg-card/10 backdrop-blur-sm rounded-md md:rounded-lg border border-border/20 flex items-center justify-center">
-                    <cat.icon
-                      className="w-7 h-7 md:w-10 md:h-10"
-                      style={{ color: "hsl(43, 80%, 55%)" }}
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="px-4 py-3 md:p-5 text-center">
-                  <h3 className="font-heading text-[15px] md:text-lg font-semibold text-foreground mb-1.5 tracking-tight">
-                    {cat.title}
-                  </h3>
-
-                  <p className="font-body text-[11.5px] md:text-xs text-muted-foreground mb-4 md:mb-5 leading-snug md:leading-relaxed">
-                    {cat.desc}
-                  </p>
-
-                  {/* Buttons */}
-                  <div className="flex gap-2 md:gap-2.5 flex-col sm:flex-row items-center justify-center">
-                    <a
-                      href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.viewMsg)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-gold w-full sm:w-auto text-[11px] md:text-xs py-2 md:py-2.5 px-4 md:px-5 flex items-center justify-center gap-1"
-                    >
-                      <Eye className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                      View
-                    </a>
-
-                    <a
-                      href={`https://wa.me/917869543555?text=${encodeURIComponent(cat.dlMsg)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary w-full sm:w-auto text-[11px] md:text-xs py-2 md:py-2.5 px-4 md:px-5 flex items-center justify-center gap-1"
-                    >
-                      <Download className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                      Download
-                    </a>
-                  </div>
-                </div>
-
-                {/* Subtle Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none rounded-2xl" />
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-5 space-y-4 md:space-y-6"
+          >
+            <div className="card-hover rounded-2xl p-5 md:p-6 bg-card/60 backdrop-blur-sm border border-border/50 flex items-start gap-4">
+              <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0 shadow-lg shadow-gold/20">
+                <Phone className="w-5 h-5 text-wood-dark" />
               </div>
-            </motion.div>
-          ))}
-        </div>
+              <div>
+                <h3 className="font-heading text-base font-bold text-foreground mb-1">Call Our Experts</h3>
+                <a href="tel:+917869543555" className="font-body text-[15px] text-muted-foreground hover:text-gold transition-colors block">
+                  +91 7869543555
+                </a>
+              </div>
+            </div>
 
+            <div className="card-hover rounded-2xl p-5 md:p-6 bg-card/60 backdrop-blur-sm border border-border/50 flex items-start gap-4">
+              <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0 shadow-lg shadow-gold/20">
+                <MessageCircle className="w-5 h-5 text-wood-dark" />
+              </div>
+              <div>
+                <h3 className="font-heading text-base font-bold text-foreground mb-1">WhatsApp Chat</h3>
+                <a
+                  href="https://wa.me/917869543555"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-[15px] text-muted-foreground hover:text-gold transition-colors block"
+                >
+                  +91 7869543555
+                </a>
+              </div>
+            </div>
+
+            <div className="card-hover rounded-2xl p-5 md:p-6 bg-card/60 backdrop-blur-sm border border-border/50 flex items-start gap-4">
+              <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0 shadow-lg shadow-gold/20">
+                <Mail className="w-5 h-5 text-wood-dark" />
+              </div>
+              <div>
+                <h3 className="font-heading text-base font-bold text-foreground mb-1">Send an Email</h3>
+                <a href="mailto:491rajendra@gmail.com" className="font-body text-[15px] text-muted-foreground hover:text-gold transition-colors block">
+                  491rajendra@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div className="card-hover rounded-2xl p-5 md:p-6 bg-card/60 backdrop-blur-sm border border-border/50 flex items-start gap-4">
+              <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0 shadow-lg shadow-gold/20">
+                <MapPin className="w-5 h-5 text-wood-dark" />
+              </div>
+              <div>
+                <h3 className="font-heading text-base font-bold text-foreground mb-1">Our Location</h3>
+                <p className="font-body text-[15px] text-muted-foreground leading-relaxed">
+                  Rajendra Traders, India
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-7"
+          >
+            <form onSubmit={handleSubmit} className="card-hover rounded-[2rem] p-6 md:p-10 bg-card/80 backdrop-blur-md border border-border space-y-6 shadow-xl">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="font-body text-sm font-semibold text-foreground/80 block px-1">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full rounded-2xl border border-border bg-background/50 px-5 py-3.5 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold/50 transition-all"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="font-body text-sm font-semibold text-foreground/80 block px-1">Phone Number</label>
+                  <input
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full rounded-2xl border border-border bg-background/50 px-5 py-3.5 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold/50 transition-all"
+                    placeholder="Enter phone number"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="font-body text-sm font-semibold text-foreground/80 block px-1">Your Message</label>
+                <textarea
+                  rows={5}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full rounded-2xl border border-border bg-background/50 px-5 py-4 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold/50 transition-all resize-none"
+                  placeholder="Describe your kitchen requirements or questions..."
+                />
+              </div>
+              <button type="submit" className="btn-gold w-full py-4 text-base shadow-xl shadow-gold/20 hover:shadow-gold/40">
+                <Send className="w-5 h-5 mr-1" />
+                Send via WhatsApp
+              </button>
+              <p className="text-center text-[13px] text-muted-foreground/80">
+                Quick response guaranteed via WhatsApp
+              </p>
+            </form>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default CatalogueSection;
+export default ContactSection;

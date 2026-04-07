@@ -1,6 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, Quote } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 
 const testimonials = [
   {
@@ -23,14 +25,9 @@ const testimonials = [
 const TestimonialsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -300 : 300, behavior: "smooth" });
-  };
 
   return (
-    <section className="section-padding bg-secondary/50" ref={ref}>
+    <section className="section-padding bg-warm-cream/20" ref={ref}>
       <div className="container-narrow">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -38,85 +35,97 @@ const TestimonialsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 md:mb-16"
         >
-          <span className="badge-gold mb-4 inline-block">Testimonials</span>
+          <span className="badge-gold mb-4 inline-block tracking-[0.2em]">Testimonials</span>
           <h2 className="section-title mb-4">What Our Clients Say</h2>
+          <div className="w-16 h-1 bg-gold/50 mx-auto rounded-full" />
         </motion.div>
 
-        {/* Mobile Slider */}
-        {/* Mobile Slider */}
-        <div className="md:hidden relative">
-          <div
-            ref={scrollRef}
-            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4"
+        {/* Mobile Swiper */}
+        <div className="md:hidden">
+          <Swiper
+            spaceBetween={20}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            modules={[Pagination, Autoplay]}
+            className="swiper-gallery !pb-14"
           >
             {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                className="snap-center shrink-0 w-[85vw] rounded-2xl p-6 bg-card border border-border shadow-md hover:shadow-xl transition-all duration-300 relative"
-              >
-                {/* Quote Icon */}
-                <Quote className="w-8 h-8 text-gold/20 absolute top-5 right-5" />
+              <SwiperSlide key={t.name} className="w-[85vw]">
+                <div className="rounded-3xl p-8 bg-card border border-border/50 shadow-xl relative h-full flex flex-col justify-between overflow-hidden">
+                  {/* Background Decor */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-3xl rounded-full translate-x-10 -translate-y-10" />
+                  
+                  <div>
+                    {/* Stars */}
+                    <div className="flex gap-1 mb-6">
+                      {[...Array(5)].map((_, j) => (
+                        <Star key={j} className="w-4 h-4 fill-gold text-gold" />
+                      ))}
+                    </div>
 
-                {/* Stars */}
-                <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-3.5 h-3.5 fill-gold text-gold" />
-                  ))}
-                </div>
+                    <Quote className="w-10 h-10 text-gold/15 absolute top-8 right-8" />
 
-                {/* Text */}
-                <p className="font-body text-[13px] text-muted-foreground leading-relaxed mb-5">
-                  “{t.text}”
-                </p>
-
-                {/* Divider */}
-                <div className="w-8 h-[2px] bg-gold/40 mb-3 rounded-full" />
-
-                {/* Name + Location */}
-                <div>
-                  <div className="font-heading text-[14px] font-semibold text-foreground tracking-tight">
-                    {t.name}
+                    {/* Text */}
+                    <p className="font-body text-[15px] text-muted-foreground leading-relaxed italic mb-8 relative z-10">
+                      “{t.text}”
+                    </p>
                   </div>
-                  <div className="font-body text-[11px] text-muted-foreground opacity-80">
-                    {t.location}
+
+                  {/* Profile Info */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20">
+                      <span className="font-heading font-bold text-gold text-lg">{t.name[0]}</span>
+                    </div>
+                    <div>
+                      <div className="font-heading text-base font-bold text-foreground tracking-tight">
+                        {t.name}
+                      </div>
+                      <div className="font-body text-xs text-muted-foreground/80 uppercase tracking-widest">
+                        {t.location}
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                {/* Subtle Glow Effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/5 to-transparent pointer-events-none" />
-              </motion.div>
+              </SwiperSlide>
             ))}
-          </div>
-
-          {/* Hint */}
-          <p className="text-[10px] text-muted-foreground text-center mt-2">
-            Swipe to explore
+          </Swiper>
+          <p className="text-[11px] text-muted-foreground text-center mt-2 opacity-60">
+            Swipe to hear from more happy homeowners
           </p>
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6">
+        <div className="hidden md:grid md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="card-hover rounded-2xl p-8 bg-card border border-border relative"
+              className="card-hover rounded-3xl p-10 bg-card border border-border/50 shadow-lg relative h-full flex flex-col justify-between"
             >
-              <Quote className="w-8 h-8 text-gold/30 absolute top-6 right-6" />
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-gold text-gold" />
-                ))}
-              </div>
-              <p className="font-body text-sm text-muted-foreground leading-relaxed mb-6">"{t.text}"</p>
               <div>
-                <div className="font-heading text-sm font-semibold text-foreground">{t.name}</div>
-                <div className="font-body text-xs text-muted-foreground">{t.location}</div>
+                <div className="flex gap-1 mb-6">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} className="w-4 h-4 fill-gold text-gold" />
+                  ))}
+                </div>
+                <Quote className="w-10 h-10 text-gold/20 absolute top-10 right-10" />
+                <p className="font-body text-[15px] text-muted-foreground leading-relaxed italic mb-8">“{t.text}”</p>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20">
+                  <span className="font-heading font-bold text-gold text-lg">{t.name[0]}</span>
+                </div>
+                <div>
+                  <div className="font-heading text-base font-bold text-foreground">{t.name}</div>
+                  <div className="font-body text-xs text-muted-foreground uppercase tracking-widest">{t.location}</div>
+                </div>
               </div>
             </motion.div>
           ))}
