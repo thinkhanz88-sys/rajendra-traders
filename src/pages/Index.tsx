@@ -9,6 +9,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/WhatsAppFloat";
+import BrandLogosSection from "@/components/BrandLogosSection";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       <ServicesSection />
       <KitchenTypesSection />
       <GallerySection />
+      <BrandLogosSection />
       <CatalogueSection />
       <TestimonialsSection />
       <ContactSection />
