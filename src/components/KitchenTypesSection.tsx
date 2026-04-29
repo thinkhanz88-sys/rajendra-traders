@@ -4,11 +4,11 @@ import { X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 
-import kitchenL from "@/assets/kitchen-l-shaped.jpg";
-import kitchenU from "@/assets/kitchen-u-shaped.jpg";
-import kitchenParallel from "@/assets/kitchen-parallel.jpg";
-import kitchenStraight from "@/assets/kitchen-straight.jpg";
-import kitchenIsland from "@/assets/kitchen-island.jpg";
+import kitchenL from "@/assets/kitchen-l-shaped.webp";
+import kitchenU from "@/assets/kitchen-u-shaped.webp";
+import kitchenParallel from "@/assets/kitchen-parallel.webp";
+import kitchenStraight from "@/assets/kitchen-straight.webp";
+import kitchenIsland from "@/assets/kitchen-island.webp";
 
 const kitchenTypes = [
   { image: kitchenL, title: "L-Shaped Kitchen", desc: "Best for corner spaces with efficient workflow", details: "The L-shaped kitchen maximizes corner space, creating an efficient work triangle. Ideal for open-plan living with ample counter space and natural flow between cooking zones." },
